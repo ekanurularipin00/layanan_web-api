@@ -27,6 +27,9 @@ $app = new Laravel\Lumen\Application(
 
 // $app->withEloquent();
 
+$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -79,6 +82,11 @@ $app->configure('app');
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+    'jwt.auth' => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+    'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
